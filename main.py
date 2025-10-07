@@ -109,7 +109,7 @@ async def recomendar(req: RecoRequest, request: Request):
         raise HTTPException(status_code=400, detail="Debes enviar 'mascotas' como lista no vacía.")
 
     prefs = req.preferencias.dict(exclude_none=True)
-    prompt = build_prompt(prefs, req.mascotas, k=3)
+    prompt = build_prompt(prefs, req.mascotas, k=4)
     data = call_openai(prompt)
     return RecoResponse(explicacion=data["explicacion"], recomendadas=data["recomendadas"])
 
