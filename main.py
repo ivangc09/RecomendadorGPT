@@ -50,7 +50,7 @@ if not OPENAI_API_KEY:
     raise RuntimeError("Define OPENAI_API_KEY en el entorno.")
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-def build_prompt(preferencias: dict, mascotas: List[dict], k: int = 3) -> str:
+def build_prompt(preferencias: dict, mascotas: List[dict], k: int = 4) -> str:
     return f"""
 Eres un sistema de recomendación de adopción. A partir de las preferencias del usuario y un catálogo de mascotas,
 elige como máximo {k} mascotas que mejor coincidan. Devuelve SIEMPRE SOLO JSON válido (sin texto extra) con este formato EXACTO:
@@ -96,7 +96,7 @@ def call_openai(prompt: str) -> dict:
         recs = data.get("recomendadas", [])
         if not isinstance(recs, list):
             recs = []
-        data["recomendadas"] = recs[:3]
+        data["recomendadas"] = recs[:4]
         data["explicacion"] = data.get("explicacion", "")
         return data
     except Exception as e:
